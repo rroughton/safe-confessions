@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { Question } from './components/question';
+
+const DEFAULT_OPTIONS = [
+  "Want",
+  "I'd like to try",
+  "I'd do it if you wanted to",
+  "I'd try it if you wanted to",
+  "Don't want",
+  "Don't know"
+]
+
+const QUESTIONS = [
+  {}
+]
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        Confess!!
+        { 
+          QUESTIONS.map((question) => {
+            return <Question title='Bite ass' options={DEFAULT_OPTIONS}/>
+        })
+        }
+      </header>     
     </div>
   );
 }
