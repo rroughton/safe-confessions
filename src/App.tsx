@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import './App.css';
-import { Question } from './components/question';
-import { chromeContext } from './global-styles';
-import { Button } from './components/button';
+import { Option } from './components/question';
+import { Form } from './components/form.tsx';
 
-const DEFAULT_OPTIONS = [
+const DEFAULT_OPTIONS: Option[] = [
   {
     name: "Yes",
     weight: 1
@@ -31,31 +30,18 @@ const QUESTIONS: string[] = ['Kiss', 'Go on a date', 'Snuggle', 'Sex', 'Make out
 
 const INITIAL_FORM: { [key: string]: number | null } = {};
 QUESTIONS.map(question => INITIAL_FORM[question] = null)
+export const FormContext = createContext({ form: INITIAL_FORM, setForm: (form: { [key: string]: number | null }) => { } });
 
 function App() {
-
   const [form, setForm] = useState(INITIAL_FORM);
 
   console.log(form)
-  const handleSubmit = () => { };
 
   return (
     <div className="App" style={styles.app}>
-      <div style={styles.form}>
-        <header style={styles.header}>
-          Confess!!
-        </header>
-        <section style={styles.questionsContainer}>
-          {
-            QUESTIONS.map((question) => {
-              return <Question title={question} options={DEFAULT_OPTIONS} />
-            })
-          }
-        </section>
-        <section style={styles.formSubmission}>
-          <Button name='Submit' onClick={handleSubmit} type='primary' />
-        </section>
-      </div>
+      <FormContext.Provider value={{ form, setForm }}>
+        <Form questions={QUESTIONS} options={DEFAULT_OPTIONS} />
+      </FormContext.Provider>
     </div>
   );
 }
@@ -65,32 +51,6 @@ const styles = {
     display: 'flex',
     width: '100%',
     justifyContent: 'center',
-  },
-  form: {
-    'box-sizing': 'border-box',
-    display: 'flex',
-    'flex-direction': 'column',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '1500px'
-  },
-  formSubmission: {
-    width: '100%',
-    maxWidth: '300px'
-  },
-  header: {
-    backgroundColor: chromeContext.accent,
-    color: chromeContext.foreground,
-    fontSize: '40px',
-    width: '100%',
-  },
-  questionsContainer: {
-    'box-sizing': 'border-box',
-    display: 'flex',
-    'flex-direction': 'column',
-    padding: '16px 0px',
-    gap: '24px',
-    width: '100%'
   }
 }
 
