@@ -14,60 +14,76 @@ const DEFAULT_OPTIONS = [
     weight: 2
   },
   {
+    name: "Need to work up to",
+    weight: 3,
+  },
+  {
     name: "No",
-    weight: 3
+    weight: 4
   },
   {
     name: "I don't know",
-    weight: 4
+    weight: 5
   }
 ]
 
-const QUESTIONS = ['Kiss', 'Go on a date', 'Snuggle', 'Sex',];
+const QUESTIONS = ['Kiss', 'Go on a date', 'Snuggle', 'Sex', 'Make out', 'Oral', 'Hold hands'];
 
 function App() {
 
   const [form, setForm] = useState({})
   return (
     <div className="App" style={styles.app}>
-      <header style={styles.header}>
-        Confess!!
-      </header>
-      <section style={styles.questionsContainer}>
-        {
-          QUESTIONS.map((question) => {
-            return <Question title={question} options={DEFAULT_OPTIONS} />
-          })
-        }
-      </section>
-      <section style={styles.formSubmission}>
-        <Button name='submit' />
-      </section>
+      <div style={styles.form}>
+        <header style={styles.header}>
+          Confess!!
+        </header>
+        <section style={styles.questionsContainer}>
+          {
+            QUESTIONS.map((question) => {
+              return <Question title={question} options={DEFAULT_OPTIONS} />
+            })
+          }
+        </section>
+        <section style={styles.formSubmission}>
+          <Button name='Submit' />
+        </section>
+      </div>
     </div>
   );
 }
 
 const styles = {
   app: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  form: {
     boxSizing: 'border-box',
     display: 'flex',
     'flex-direction': 'column',
-    justifyContent: 'center'
+    alignItems: 'center',
+    width: '100%',
+    maxWidth: '1500px'
   },
   formSubmission: {
-    width: '300px'
+    width: '100%',
+    maxWidth: '300px'
   },
   header: {
     backgroundColor: chromeContext.accent,
     color: chromeContext.foreground,
-    fontSize: '40px'
+    fontSize: '40px',
+    width: '100%',
   },
   questionsContainer: {
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
     padding: '16px 0px',
-    gap: '24px'
+    gap: '24px',
+    width: '100%'
   }
 }
 

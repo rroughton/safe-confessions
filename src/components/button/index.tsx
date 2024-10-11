@@ -1,15 +1,23 @@
-import React, { ButtonHTMLAttributes } from 'react'
+import React from 'react'
+import './style.css'
 import { chromeContext } from "../../global-styles"
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
+  isSelected?: boolean,
   name: string,
-  onClick: () => void
+  onClick: () => void,
+  type: 'primary' | 'secondary' | 'tertiary'
 }
 
-export const Button = (props: ButtonProps) => {
-  const { onClick, name } = props;
+export const Button = ({ isSelected = false, onClick, name, type }: ButtonProps) => {
+
+  let buttonStyles = { ...styles.button, ...styles[type] };
+  if (isSelected) {
+    buttonStyles = { ...buttonStyles, ...styles.selected }
+  }
+
   return (
-    <button style={styles.button} {...props}>
+    <button className='button' style={buttonStyles} onClick={onClick}>
       {name}
     </button>
   )
@@ -23,10 +31,23 @@ const styles = {
     alignItems: 'center',
     border: 'none',
     display: 'flex',
-    flex: '1 1 0px',
     justifyContent: 'center',
     padding: '12px 24px',
     fontSize: '20px',
-    borderRadius: '50px'
+    borderRadius: '50px',
+    width: '100%',
+  },
+
+  primary: {
+    backgroundColor: chromeContext.accent
+  },
+  secondary: {
+    backgroundColor: chromeContext.container
+  },
+  tertiary: {
+
+  },
+  selected: {
+    backgroundColor: chromeContext.accent
   }
 }

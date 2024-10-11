@@ -14,8 +14,6 @@ interface Option {
 
 export const Question = ({ title, options }: QuesitonProps) => {
   const [currentlySelectedOption, setCurrentlySelectedOption] = useState(99999)
-  console.log(options)
-
 
   return (
     <div style={styles.questionContainer}>
@@ -27,7 +25,7 @@ export const Question = ({ title, options }: QuesitonProps) => {
           return (
             <Option
               isSelected={index === currentlySelectedOption}
-              onClick={() => { console.log('here'); setCurrentlySelectedOption(index) }}
+              onClick={() => setCurrentlySelectedOption(index)}
               {...option}
             />
           )
@@ -40,15 +38,16 @@ export const Question = ({ title, options }: QuesitonProps) => {
 const styles = {
   optionsContainer: {
     display: 'flex',
-    gap: '46px',
-    justifyContent: 'space-around',
     width: '100%',
+    'flex-wrap': 'wrap',
   },
+
   header: {
     display: 'flex',
     fontSize: '24px',
     color: chromeContext.foreground
   },
+
   questionContainer: {
     alignItems: 'center',
     border: `3px solid ${chromeContext.background}`,
