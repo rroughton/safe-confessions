@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Question } from './components/question';
 import { chromeContext } from './global-styles';
@@ -27,11 +27,18 @@ const DEFAULT_OPTIONS = [
   }
 ]
 
-const QUESTIONS = ['Kiss', 'Go on a date', 'Snuggle', 'Sex', 'Make out', 'Oral', 'Hold hands'];
+const QUESTIONS: string[] = ['Kiss', 'Go on a date', 'Snuggle', 'Sex', 'Make out', 'Oral', 'Hold hands'];
+
+const INITIAL_FORM: { [key: string]: number | null } = {};
+QUESTIONS.map(question => INITIAL_FORM[question] = null)
 
 function App() {
 
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState(INITIAL_FORM);
+
+  console.log(form)
+  const handleSubmit = () => { };
+
   return (
     <div className="App" style={styles.app}>
       <div style={styles.form}>
@@ -46,7 +53,7 @@ function App() {
           }
         </section>
         <section style={styles.formSubmission}>
-          <Button name='Submit' />
+          <Button name='Submit' onClick={handleSubmit} type='primary' />
         </section>
       </div>
     </div>
@@ -60,7 +67,7 @@ const styles = {
     justifyContent: 'center',
   },
   form: {
-    boxSizing: 'border-box',
+    'box-sizing': 'border-box',
     display: 'flex',
     'flex-direction': 'column',
     alignItems: 'center',
@@ -78,9 +85,9 @@ const styles = {
     width: '100%',
   },
   questionsContainer: {
-    boxSizing: 'border-box',
+    'box-sizing': 'border-box',
     display: 'flex',
-    flexDirection: 'column',
+    'flex-direction': 'column',
     padding: '16px 0px',
     gap: '24px',
     width: '100%'
