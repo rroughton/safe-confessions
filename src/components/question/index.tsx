@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Option } from '../option'
 import { chromeContext } from '../../global-styles'
+import { FormContext } from '../../App'
 
 interface QuesitonProps {
   title: string
   options: Option[]
 }
 
-interface Option {
+export interface Option {
   name: string
   weight: number
 }
 
 export const Question = ({ title, options }: QuesitonProps) => {
+  const {
+    form,
+    setForm
+  } = useContext(FormContext);
   const [currentlySelectedOption, setCurrentlySelectedOption] = useState(99999)
-  console.log(options)
-
 
   return (
     <div style={styles.questionContainer}>
@@ -23,11 +26,17 @@ export const Question = ({ title, options }: QuesitonProps) => {
         {title}
       </header>
       <section style={styles.optionsContainer}>
-        {options.map((option, index) => {
+        {options.map((option) => {
           return (
             <Option
-              isSelected={index === currentlySelectedOption}
-              onClick={() => { console.log('here'); setCurrentlySelectedOption(index) }}
+              isSelected={option.weight === currentlySelectedOption}
+              onClick={() => {
+                setCurrentlySelectedOption(option.weight);
+                setForm({
+                  ...form,
+                  [title]: option.weight
+                });
+              }}
               {...option}
             />
           )
@@ -40,15 +49,16 @@ export const Question = ({ title, options }: QuesitonProps) => {
 const styles = {
   optionsContainer: {
     display: 'flex',
-    gap: '46px',
-    justifyContent: 'space-around',
     width: '100%',
+    'flex-wrap': 'wrap',
   },
+
   header: {
     display: 'flex',
     fontSize: '24px',
     color: chromeContext.foreground
   },
+
   questionContainer: {
     alignItems: 'center',
     border: `3px solid ${chromeContext.background}`,

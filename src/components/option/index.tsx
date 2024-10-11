@@ -1,5 +1,4 @@
 import React, { FC } from "react"
-import { chromeContext } from "../../global-styles"
 import { Button } from "../button"
 
 interface OptionProps {
@@ -14,25 +13,17 @@ export const Option: FC<OptionProps> = ({ isSelected, name, onClick }: OptionPro
     onClick();
   }
 
-  const buttonStyles = isSelected ? { ...styles.button, ...styles.selected } : { ...styles.button }
-
   return (
-    <Button name={name} onClick={handleClick} />
+    <div style={styles.buttonContainer}>
+      <Button name={name} onClick={handleClick} isSelected={isSelected} type='secondary' />
+    </div>
   )
 }
 
 const styles = {
-  button: {
-    alignItems: 'center',
-    'box-sizing': 'border-box',
-    border: 'none',
-    display: 'flex',
-    flex: '1 1 0px',
-    justifyContent: 'center',
-    padding: '8px',
-    fontSize: '20px',
-  },
-  selected: {
-    backgroundColor: chromeContext.accent
+  buttonContainer: {
+    padding: '12px',
+    maxWidth: '270px',
+    width: '100%',
   }
 }
